@@ -11,3 +11,7 @@
 或者
 
 `node-dev server 8888`
+
+## 测试访问路径
+
+`http://localhost:8888/index.html`
