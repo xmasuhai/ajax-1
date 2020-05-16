@@ -29,19 +29,19 @@ var server = http.createServer(function (request, response) {
   console.log(request.headers) //得到所有符合格式的请求头
   console.log('--------')
 
+  // AJAX请求分页
   if (path === '/index.html') {
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/html;charset=utf-8')
     let string = fs.readFileSync('src/index.html').toString() // 调用toString()前 是buffer
-
-    // AJAX分页
     const page1 = fs.readFileSync('db/page1.json')
-
+    // [{ "id": 1 }, { "id": 2 }, { "id": 3 }, { "id": 4 }, { "id": 5 }, { "id": 6 }, { "id": 7 }, { "id": 8 }, { "id": 9 }, { "id": 10 }]
+    const array = JSON.parse(page1)
     // li
-    const array = JSON.parse(page1) // [{ "id": 1 }, { "id": 2 }, { "id": 3 }, { "id": 4 }, { "id": 5 }, { "id": 6 }, { "id": 7 }, { "id": 8 }, { "id": 9 }, { "id": 10 }]
     const result = array.map(item => {
       return `<li>${item.id}</li>`
     }).join('')
+    // ul
     string = string.replace('{{page1}}', `<ul id="xxx">${result}</ul>`)
     response.write(string)
     response.end()
@@ -60,9 +60,8 @@ var server = http.createServer(function (request, response) {
     response.setHeader('Content-Type', 'text/javascript;charset=utf-8')
     response.write(fs.readFileSync('src/main.js'))
     response.end()
-  }
-  /* 用AJAX 获取 CSS JS */
-  else if (path === '/style.css') {
+  } else if (path === '/style.css') {
+    /* 用AJAX 获取 CSS */
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/css;charset=utf-8')
     response.write(fs.readFileSync('src/style.css'))
@@ -73,27 +72,31 @@ var server = http.createServer(function (request, response) {
     response.write(fs.readFileSync('src/getStyle.js'))
     response.end()
   } else if (path === '/getJS.js') {
+    /* 用AJAX 获取 JS */
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/javascript;charset=utf-8')
     response.write(fs.readFileSync('src/getJS.js'))
     response.end()
   } else if (path === '/indexOld.html') {
+    /* 用AJAX 获取 HTML */
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/html;charset=utf-8')
     response.write(fs.readFileSync('src/indexOld.html'))
     response.end()
   } else if (path === '/getXML.xml') {
+    /* 用AJAX 获取 XML */
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/xml;charset=utf-8')
     response.write(fs.readFileSync('src/getXML.xml'))
     response.end()
   } else if (path === '/getJSON.json') {
+    /* 用AJAX 获取 JSON */
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/json;charset=utf-8') // 'application/json;charset=utf-8'也可
     response.write(fs.readFileSync('src/getJSON.json'))
     response.end()
   }
-  /*  */
+  /* previous node.js */
   else if (path === '/x') {
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/css;charset=utf-8')
