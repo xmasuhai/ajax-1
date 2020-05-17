@@ -1,16 +1,16 @@
 # AJAX-test
 
+## 下载代码
+
+`git clone git@github.com:xmasuhai/ajax-1.git`
+
+## 进入目录
+
+`cd ajax-1/`
+
 ## 启动应用
 
-`node server.js 8888`
-
-或者
-
-`node server 8888`
-
-或者
-
-`node-dev server 8888`
+`node-dev server.js 8888`
 
 ## 测试访问路径
 
