@@ -40,9 +40,9 @@ getJS.onclick = () => {
       // 插到body里
       document.body.appendChild(script)
     }
+
   }
-}
-request.send()
+  request.send()
 }
 
 // AJAX 加载 HTML
@@ -95,27 +95,31 @@ getJSON.onclick = () => {
   request.send()
 }
 
-let pageCount = 1
+let page = [1, 2, 3]
+let currentPage = page[0]
 // AJAX 加载 分页
 getPage.onclick = () => {
-  const request = new XMLHttpRequest()
-  request.open('GET', `/page${pageCount + 1}`)
-  request.onreadystatechange = () => {
-    if (request.readyState === 4 && request.status === 200) {
-      const array = JSON.parse(request.response)
-      array.forEach(item => {
-        const li = document.createElement('li')
-        li.textContent = item.id
-        xxx.appendChild(li)
-      });
-
-      // console.log(request.response)
-      const object = JSON.parse(request.response)
-      // console.log(object)
-      myName.textContent = object.name
-
-      pageCount += 1
+  if (currentPage < 3) {
+    const request = new XMLHttpRequest()
+    request.open('GET', `/page${currentPage + 1}`)
+    request.onreadystatechange = () => {
+      if (request.readyState === 4 && request.status === 200) {
+        const array = JSON.parse(request.response)
+        array.forEach(item => {
+          const li = document.createElement('li')
+          li.textContent = item.id
+          xxx.appendChild(li)
+        });
+        // console.log(request.response)
+        const object = JSON.parse(request.response)
+        // console.log(object)
+        myName.textContent = object.name
+        currentPage += 1
+      }
     }
+    request.send()
+  } else {
+    // console.log("Ban")
+    getPage.disabled = true
   }
-  request.send()
 }
