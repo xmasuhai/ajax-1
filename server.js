@@ -33,7 +33,11 @@ var server = http.createServer(function (request, response) {
   if (path === '/index.html') {
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/html;charset=utf-8')
-    let string = fs.readFileSync('src/index.html').toString() // 调用toString()前 是buffer
+    const testText = fs.readFileSync('src/index.html')
+    console.log(typeof testText) // object
+    console.log(testText)
+
+    let string = fs.readFileSync('src/index.html').toString() // 调用toString()前 是<buffer>
     const page1 = fs.readFileSync('db/page1.json')
     // [{ "id": 1 }, { "id": 2 }, { "id": 3 }, { "id": 4 }, { "id": 5 }, { "id": 6 }, { "id": 7 }, { "id": 8 }, { "id": 9 }, { "id": 10 }]
     const array = JSON.parse(page1)

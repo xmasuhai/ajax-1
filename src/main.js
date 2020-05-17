@@ -32,18 +32,17 @@ getJS.onclick = () => {
   const request = new XMLHttpRequest()
   request.open('GET', '/getJS.js')
   request.onreadystatechange = () => {
-    if (request.readyState === 4) {
-      if (request.status >= 200 && request.status < 300) {
-        // 创建script标签
-        const script = document.createElement('script')
-        // 填写 script内容
-        script.innerHTML = request.response
-        // 插到body里
-        document.body.appendChild(script)
-      }
+    if (request.readyState === 4 && request.status === 200) {
+      // 创建script标签
+      const script = document.createElement('script')
+      // 填写 script内容
+      script.innerHTML = request.response
+      // 插到body里
+      document.body.appendChild(script)
     }
   }
-  request.send()
+}
+request.send()
 }
 
 // AJAX 加载 HTML
@@ -51,17 +50,14 @@ getHTML.onclick = () => {
   const request = new XMLHttpRequest()
   request.open('GET', '/indexOld.html')
   request.onreadystatechange = () => {
-    if (request.readyState === 4) {
-      if (request.status >= 200 && request.status < 300) {
-        // 创建 div 标签
-        const div = document.createElement('div')
-        // 填写 div 内容
-        div.innerHTML = request.response
-        // 插到body里
-        document.body.appendChild(div)
-      }
-    } else {
-      console.log('失败了')
+    if (request.readyState === 4 && request.status === 200) {
+      // 创建 div 标签
+      const div = document.createElement('div')
+      // 填写 div 内容
+      div.innerHTML = request.response
+      // 插到body里
+      document.body.appendChild(div)
+
     }
   }
   request.send()
