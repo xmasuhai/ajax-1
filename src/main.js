@@ -86,13 +86,19 @@ getJSON.onclick = () => {
   request.open('GET', '/getJSON.json')
   request.onreadystatechange = () => {
     if (request.readyState === 4 && request.status === 200) {
-      console.log(request.response)
+      // console.log(request.response)
       const object = JSON.parse(request.response)
       console.log(object)
       myName.textContent = object.name
     }
   }
   request.send()
+  // 之后马上后台打印request.response无效
+  console.log(request.response)
+  // 2s之后在后台打印request.response
+  setTimeout(() => {
+    console.log(request.response)
+  }, 2000)
 }
 
 let page = [1, 2, 3]
